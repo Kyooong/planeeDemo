@@ -1,13 +1,8 @@
 package com.example.demo.plan;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,14 +38,18 @@ public class PlanController {
 	}
 	
 	@GetMapping("/updateCompleted")
-	public String updateCompleted(HttpServletRequest request) throws Exception {
-		String[] arr = request.getParameterValues("check");
-		for (int i = 0; i < arr.length; i++) {
-			Integer n = Integer.parseInt(arr[i]);
-			Plan temp2 = planRepository.getOne(n);
-			temp2.setIsCompleted(true);
-			planRepository.save(temp2);
+	public String updateCompleted(@RequestParam Plan[] check) throws Exception {
+		System.out.println("=============================================");
+		for (Plan plan : check) {
+			System.out.println(plan.toString());
 		}
+		System.out.println("=============================================");
+		/*
+		 * String[] arr = request.getParameterValues("check"); for (int i = 0; i <
+		 * arr.length; i++) { Integer n = Integer.parseInt(arr[i]); Plan temp2 =
+		 * planRepository.getOne(n); temp2.setIsCompleted(true);
+		 * planRepository.save(temp2); }
+		 */
 //		System.out.println(Arrays.toString(arr));
 		return "redirect:/writeplan";
 	}
