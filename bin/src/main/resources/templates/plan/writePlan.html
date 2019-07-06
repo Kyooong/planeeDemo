@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Planee</title>
+<style type="text/css">
+	h1 {
+		text-align: center;
+	}
+	
+	table {
+		border : 1px solid black;
+	}
+	
+	th {
+		border-left : 1px solid gray;
+		border-bottom : 1px solid gray;
+		padding : 3px;
+	}
+	
+	td {
+		border-left : 1px solid gray;
+		padding : 3px;
+	}
+	
+	tr :first-child {
+		text-align : center;
+	}
+	
+	.only {
+		display : inline-block;
+	}
+	
+	#only1 {
+		float:left;
+	}
+	
+	#only2 {
+		float:right;
+	}
+	
+	.secondTableBeauty {
+		border-top : 1px solid gray;
+		padding-top : 5px;
+	}
+	
+	.table2 {
+		text-align: center;
+	}
+	
+	#save {
+		width : 100px;
+		margin-top : 10px;
+		height : auto;
+		font-size : 15px;
+		float : right;
+	}
+</style>
+</head>
+<body>
+	<h1>Today's Schedule</h1>
+	
+	<!-- 오늘의 일정표 -->
+	<div class="only" id="only1">
+		<form action="/updateCompleted" method="get">
+			<table>
+				<tr>
+					<th style="width:80px;">시작시간</th>
+					<th style="width:80px;">종료시간</th>
+					<th style="width:100px;">장소</th>
+					<th style="width:150px;">과제</th>
+					<th style="width:50px; font-size:12px;">완료여부</th>
+				</tr>
+				<tr th:each = "item : ${list}">
+					<td th:text="${item.startTime}"></td>
+					<td th:text="${item.endTime}"></td>
+					<td th:text="${item.planPlace}"></td>
+					<td th:text="${item.planContent}"></td>
+					<td th:if="${item.isCompleted}">완료</td>
+					<td th:unless="${item.isCompleted}">
+						<input type="checkbox" th:name="check" th:value="${item.planId}"/>
+					</td>
+				</tr>
+			</table>
+			<input type="submit" value="수정"></button>
+		</form>
+	</div>
+	
+	<!-- 일기, 계획 등 작성란 -->
+	<!-- data : (시작시간, 종료시간, 장소, 할일) -->
+	<div class="only" id="only2">
+		<form action="/writeplan" method="post">
+			<table class="table2">
+				<tr>
+					<th>시작시간</th>
+					<th>종료시간</th>
+				</tr>
+				<tr>
+					<td><input type="datetime-local" id="startTime" name="startTime"/></td>
+					<td><input type="datetime-local" id="endTime" name="endTime"/></td>
+				</tr>
+				<tr>
+					<th class="secondTableBeauty">장소</th>
+					<th class="secondTableBeauty">할일</th>
+				</tr>
+				<tr>
+					<td><input type="text" id="place" name="planPlace"/></td>
+					<td><input type="text" id="toDo" name="planContent"/></td>
+				</tr>
+			</table>
+			<input type="submit" id="save" value="저장"/>
+		</form>
+	</div>
+</body>
+</html>
