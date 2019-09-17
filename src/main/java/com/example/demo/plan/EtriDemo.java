@@ -40,7 +40,7 @@ public class EtriDemo {
  
     static public void main(String[] args) {
         String openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU";
-        String accessKey = "YOUR_ACCESS_KEY";   // 발급받은 API Key
+        String accessKey = "6c37a6a1-1dd7-43e5-a937-6ad1467467ca";   // 발급받은 API Key
         String analysisCode = "ner";        // 언어 분석 코드
         String text = "";           // 분석할 텍스트 데이터
         Gson gson = new Gson();
@@ -92,8 +92,9 @@ public class EtriDemo {
                 System.out.println("[error] " + responBodyJson);
                 return ;
             }
- 
+            
             responeBody = gson.fromJson(responBodyJson, Map.class);
+            System.out.println(responeBody);
             Integer result = ((Double) responeBody.get("result")).intValue();
             Map<String, Object> returnObject;
             List<Map> sentences;

@@ -1,23 +1,23 @@
 package com.example.demo.plan;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PlanController {
 	@Autowired
 	PlanRepository planRepository;
+	@Autowired
+	ProcessSentence processSentence;
 	
 	@GetMapping("/plan")
 	public String plan() {
@@ -54,4 +54,13 @@ public class PlanController {
 //		System.out.println(Arrays.toString(arr));
 		return "redirect:/writeplan";
 	}
+	
+	
+	@PostMapping("/processSentence")
+	public @ResponseBody Map<String, Object> processSentence(String input) {
+		System.out.println(input);
+		return processSentence.doProcess(input);
+	}
+	
+	
 }
